@@ -286,7 +286,6 @@ TOT;
             $createFlag = $this->confirm($this->className . 'Controller.php' . ' 文件已存在，是否替换');
         }
 
-
         if (!$createFlag) {
             return false;
         }
@@ -526,6 +525,7 @@ TOT;
             'getList',
             'del',
             'add',
+            'update',
             'getOne'
         ];
 
