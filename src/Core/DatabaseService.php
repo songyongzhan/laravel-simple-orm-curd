@@ -55,11 +55,6 @@ abstract class DatabaseService
 
     public function del(int $id)
     {
-//        if ($this->getModel()->isRealDelete) {
-//        } else {
-//            $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=',
-//                $id)->update([$this->getModel()->isDeleted => '1']);
-//        }
         $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=', $id)->delete();
 
         return $affectedNum ?? '0';
