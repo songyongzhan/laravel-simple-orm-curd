@@ -19,3 +19,23 @@ if (!function_exists('get_where_condition')) {
         ];
     }
 }
+
+if (!function_exists('get_return_json')) {
+    /**
+     * get_return_json
+     * @param $data
+     * @param string $code
+     * @param string $message
+     * @return array
+     */
+    function get_return_json($data, $code = '0', string $message = '成功')
+    {
+        return [
+            'code' => $code,
+            'message' => $message,
+            'data' => $data
+        ];
+    }
+}
+
+

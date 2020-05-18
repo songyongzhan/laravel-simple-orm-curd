@@ -10,4 +10,7 @@ return [
     'service_path' => base_path('app' . DIRECTORY_SEPARATOR . 'Services'),
     'model_path' => base_path('app' . DIRECTORY_SEPARATOR . 'Models'),
     'route_file' => base_path('routes' . DIRECTORY_SEPARATOR . 'web.php'),
+    'model_create_at'=>'created_at',
+    'model_updated_at'=>'updated_at',
+
 ];

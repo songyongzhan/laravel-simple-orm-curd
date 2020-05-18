@@ -115,7 +115,7 @@ class Scaffold extends Command
 
             $this->createRoute();
         } else {
-            switch ($only){
+            switch ($only) {
                 case 'controller':
                     $this->createController();
                     break;
@@ -134,7 +134,7 @@ class Scaffold extends Command
                 default :
                     $this->alert('命令输入错误');
             }
-            return ;
+            return;
         }
     }
 
@@ -169,6 +169,22 @@ class --controllerName--Controller extends ApiController
     {
         $param = $request->all();
         $result = $this->getManager()->add($param);
+
+        return $this->showJson($result);
+    }
+
+    /**
+     *
+     * getOne
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @date --datetime--
+     */
+    public function getOne(Request $request)
+    {
+        $id = $request->input('id');
+        $result = $this->getManager()->getOne($id, self::LIST_FIELDS);
 
         return $this->showJson($result);
     }
@@ -308,7 +324,7 @@ class --managerName--Manager extends DatabaseManager
 
 TOT;
         $managerPath = config('songyz_scaffold.manager_path');
-        $managerPath = app_path() . str_replace(app_path(), '', $managerPath);
+        $managerPath = base_path('app') . str_replace(base_path('app'), '', $managerPath);
 
         $currentNameSpace = $this->calculationNameSpace($managerPath);
         $serviceNamespace = $this->calculationNameSpace(config('songyz_scaffold.service_path'));
@@ -364,6 +380,9 @@ use --modelNamespace--\--serviceName--Model;
  * @date --datetime--
  */
 class --serviceName--Service extends DatabaseService {
+    
+    //主键
+    protected $primaryId = 'id';
 
     /**
      * @inheritDoc
@@ -433,6 +452,9 @@ use Songyz\Core\Model;
 class --modelName--Model extends Model{
 
     protected $table='--tableName--';
+    
+    const CREATED_AT = '--created_at--';
+    const UPDATED_AT = '--updated_at--';
 
     protected $connection='--connectionName--';
 
@@ -443,6 +465,12 @@ TOT;
         $modelPath = config('songyz_scaffold.model_path');
         $modelPath = app_path() . str_replace(app_path(), '', $modelPath);
 
+
+        $createdAt = config('songyz_scaffold.model_create_at');
+        $updateAt = config('songyz_scaffold.model_updated_at');
+        empty($createdAt) && $createdAt = 'created_at';
+        empty($updateAt) && $updateAt = 'updated_at';
+
         $currentNameSpace = $this->calculationNameSpace($modelPath);
 
         $content = str_replace([
@@ -451,7 +479,9 @@ TOT;
             '--namespace--',
             '--connectionName--',
             '--fileDescription--',
-            '--tableName--'
+            '--tableName--',
+            '--created_at--',
+            '--updated_at--',
         ],
             [
                 $this->className,
@@ -459,7 +489,9 @@ TOT;
                 $currentNameSpace,
                 $this->connection,
                 $this->fileDescription,
-                $this->tableName
+                $this->tableName,
+                $createdAt,
+                $updateAt
             ],
             $modelSub);
 

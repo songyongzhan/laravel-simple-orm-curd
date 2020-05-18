@@ -1,10 +1,10 @@
 <?php
 
 namespace Songyz\Core;
+
 use Songyz\Traits\SnakeCamelChange;
 
-
-class CurdController extends \App\Http\Controllers\Controller
+class Controller extends \App\Http\Controllers\Controller
 {
 
     use SnakeCamelChange;
@@ -12,6 +12,27 @@ class CurdController extends \App\Http\Controllers\Controller
     public function __construct()
     {
 
+    }
+
+    /**
+     * 返回json串
+     * showJson
+     * @param $data
+     * @param string $code
+     * @param string $message
+     * @param int $httpStatus
+     * @param array $headers
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showJson(
+        $data,
+        string $code = '0',
+        string $message = '成功',
+        $httpStatus = 200,
+        $headers = []
+    ) {
+        $result = get_return_json($data, $code, $message);
+        return response()->json($result, $httpStatus, $headers, JSON_UNESCAPED_UNICODE);
     }
 
     protected function input($name = '', $default = '')
@@ -82,9 +103,9 @@ class CurdController extends \App\Http\Controllers\Controller
                             $dbFields = $val['db_field'][$f_key];
                             $condition = $f_key == 0 ? '>=' : '<=';
                             $where[] = [
-                                'field'    => trim($dbFields),
+                                'field' => trim($dbFields),
                                 'operator' => $condition,
-                                'val'      => trim($key_value)
+                                'val' => trim($key_value)
                             ];
                         }
                     }
@@ -95,9 +116,9 @@ class CurdController extends \App\Http\Controllers\Controller
                             continue;
                         }
                         $where[] = [
-                            'field'    => trim($val['db_field'][$f_key]),
+                            'field' => trim($val['db_field'][$f_key]),
                             'operator' => $condition_type,
-                            'val'      => isset($data[$f_filed]) ? trim($data[$f_filed]) : ''
+                            'val' => isset($data[$f_filed]) ? trim($data[$f_filed]) : ''
                         ];
                     }
                     break;
@@ -129,26 +150,26 @@ class CurdController extends \App\Http\Controllers\Controller
                 switch ($condition_type) {
                     case 'like':
                         $where[] = [
-                            'field'     => $dbFields,
-                            'operator'  => 'like',
-                            'val'       => '%' . trim($key_value) . '%',
+                            'field' => $dbFields,
+                            'operator' => 'like',
+                            'val' => '%' . trim($key_value) . '%',
                             'condition' => 'AND'
                         ];
                         break;
                     case 'after_like':
                         $where[] = [
-                            'field'     => $dbFields,
-                            'operator'  => 'like',
-                            'val'       => trim($key_value) . '%',
+                            'field' => $dbFields,
+                            'operator' => 'like',
+                            'val' => trim($key_value) . '%',
                             'condition' => 'AND'
                         ];
 
                         break;
                     case 'before_like':
                         $where[] = [
-                            'field'     => $dbFields,
-                            'operator'  => 'like',
-                            'val'       => '%' . trim($key_value),
+                            'field' => $dbFields,
+                            'operator' => 'like',
+                            'val' => '%' . trim($key_value),
                             'condition' => 'AND'
                         ];
                         break;
@@ -183,9 +204,9 @@ class CurdController extends \App\Http\Controllers\Controller
         }
 
         $where[] = [
-            'field'     => $dbFields,
-            'operator'  => $condition_type,
-            'val'       => $data[$dbFields],
+            'field' => $dbFields,
+            'operator' => $condition_type,
+            'val' => $data[$dbFields],
             'condition' => 'AND'
         ];
 

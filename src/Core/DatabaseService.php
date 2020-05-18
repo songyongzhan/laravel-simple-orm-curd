@@ -55,12 +55,12 @@ abstract class DatabaseService
 
     public function del(int $id)
     {
-        if ($this->getModel()->isRealDelete) {
-            $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=', $id)->delete();
-        } else {
-            $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=',
-                $id)->update([$this->getModel()->isDeleted => '1']);
-        }
+//        if ($this->getModel()->isRealDelete) {
+//        } else {
+//            $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=',
+//                $id)->update([$this->getModel()->isDeleted => '1']);
+//        }
+        $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=', $id)->delete();
 
         return $affectedNum ?? '0';
     }
@@ -92,14 +92,30 @@ abstract class DatabaseService
         array $with = [],
         $callback = 'function'
     ) {
-        empty($order) && $order = 'gmt_created desc';
-        list($orderField, $orderType) = explode(' ', $order);
 
         $fields = $this->filterField($this->valueSnake($fields), '', false);
         $fields || $fields = ['*'];
 
         $model = $this->getModel();
-        $result = $model::getQuery($where)->with($with)->orderBy($orderField, $orderType)->paginate($pageSize,
+
+        $query = $model::getQuery($where)->with($with);
+
+        empty($order) && $order = $this->primaryId . ' desc';
+
+        if (stripos($order, ',')) {
+            $orderArr = explode(',', $order);
+            foreach ($orderArr as $orderK => $orderVal) {
+                if (stripos(trim($orderVal), ' ')) {
+                    list($orderField, $orderType) = explode(' ', $order);
+                    $query->orderBy($orderField, $orderType);
+                }
+            }
+        } else {
+            list($orderField, $orderType) = explode(' ', $order);
+            $query->orderBy($orderField, $orderType);
+        }
+
+        $result = $query->paginate($pageSize,
             $fields, 'pageNumber', $pageNumber);
 
         $listData = collect($result->items())->toArray();

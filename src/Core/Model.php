@@ -14,15 +14,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
 {
     use SnakeCamelChange;
 
-    const CREATED_AT = 'gmt_created';
-
-    const UPDATED_AT = 'gmt_modified';
-
-    /** @var string 软删除字段 */
-    public $isDeleted = 'is_deleted';
-
-    /** @var bool 是否真实删除 */
-    public $isRealDelete = false;
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
 
     /** @var bool 下换线转驼峰 */
     protected $underlineToHump = true;

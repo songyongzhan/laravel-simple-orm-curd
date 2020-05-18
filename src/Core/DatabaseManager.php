@@ -7,7 +7,7 @@ namespace Songyz\Core;
  * Class Manager
  * @package App\Core
  */
-abstract class DatabaseManager extends Manager
+abstract class DatabaseManager
 {
     public function __construct()
     {
