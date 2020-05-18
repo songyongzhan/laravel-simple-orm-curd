@@ -1,0 +1,39 @@
+{
+  "name": "songyz/laravel-simple-orm-curd",
+  "description": "简单、实用、接口生成、curd",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "api",
+    "orm",
+    "request",
+    "crud",
+    "test",
+    "generator"
+  ],
+  "authors": [
+    {
+      "name": "SongYongZhan",
+      "email": "574482856@qq.com"
+    }
+  ],
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Songyz\\": "src/"
+    },
+    "files": [
+      "src/library/functions.php"
+    ]
+  },
+  "require-dev": {
+  },
+  "autoload-dev": {
+    "psr-4": {
+    }
+  },
+  "require": {
+    "php": ">=7.1"
+  },
+  "minimum-stability": "dev"
+}
