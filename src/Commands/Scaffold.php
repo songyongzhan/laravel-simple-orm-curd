@@ -459,7 +459,6 @@ class --modelName--Model extends Model{
 
 }
 
-
 TOT;
         $modelPath = config('songyz_scaffold.model_path');
         $modelPath = app_path() . str_replace(app_path(), '', $modelPath);
