@@ -400,7 +400,8 @@ class --serviceName--Service extends DatabaseService {
 
 TOT;
         $servicePath = config('songyz_scaffold.service_path');
-        $servicePath = app_path() . str_replace(app_path(), '', $servicePath);
+        $servicePath = base_path('app') . str_replace(base_path('app'), '', $servicePath);
+
 
         $modelNamespace = $this->calculationNameSpace(config('songyz_scaffold.model_path'));
         $currentNameSpace = $this->calculationNameSpace($servicePath);
@@ -467,7 +468,8 @@ class --modelName--Model extends Model{
 
 TOT;
         $modelPath = config('songyz_scaffold.model_path');
-        $modelPath = app_path() . str_replace(app_path(), '', $modelPath);
+        $modelPath = base_path('app') . str_replace(base_path('app'), '', $modelPath);
+
 
 
         $createdAt = config('songyz_scaffold.model_create_at');
@@ -591,22 +593,22 @@ TOT;
     {
 
         $path = config('songyz_scaffold.controller_path');
-        $path = app_path() . str_replace(app_path(), '', $path);
+        $path = base_path('app') . str_replace(base_path('app'), '', $path);
         $file = $path . self::DS . ucfirst($module) . 'Controller.php';
         file_exists($file) && unlink($file) && $this->info($file . ' 删除成功');
 
         $path = config('songyz_scaffold.service_path');
-        $path = app_path() . str_replace(app_path(), '', $path);
+        $path = base_path('app') . str_replace(base_path('app'), '', $path);
         $file = $path . self::DS . ucfirst($module) . 'Service.php';
         file_exists($file) && unlink($file) && $this->info($file . ' 删除成功');
 
         $path = config('songyz_scaffold.manager_path');
-        $path = app_path() . str_replace(app_path(), '', $path);
+        $path = base_path('app') . str_replace(base_path('app'), '', $path);
         $file = $path . self::DS . ucfirst($module) . 'Manager.php';
         file_exists($file) && unlink($file) && $this->info($file . ' 删除成功');
 
         $path = config('songyz_scaffold.model_path');
-        $path = app_path() . str_replace(app_path(), '', $path);
+        $path = base_path('app') . str_replace(base_path('app'), '', $path);
         $file = $path . self::DS . ucfirst($module) . 'Model.php';
         file_exists($file) && unlink($file) && $this->info($file . ' 删除成功');
 
