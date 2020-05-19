@@ -4,6 +4,7 @@ namespace Songyz\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Laravel\Lumen\Application as LumenApplication;
 
 /**
  * Class Scaffold
@@ -452,15 +453,15 @@ use Songyz\Core\Model;
  * Class --modelName--Model
  * @date --datetime--
  */
-class --modelName--Model extends Model{
+class --modelName--Model extends Model
+{
 
     protected $table='--tableName--';
     
     const CREATED_AT = '--created_at--';
     const UPDATED_AT = '--updated_at--';
 
-    protected $connection='--connectionName--';
-
+    protected $connection = '--connectionName--';
 }
 
 TOT;
@@ -535,9 +536,16 @@ TOT;
                     '\\') . '\\') . $this->className . 'Controller';
 
         $routes = [];
-        foreach ($routeMaps as $r) {
-            $routes[] = "Route::post('" . lcfirst($this->className) . "/{$r}', '{$controller}@{$r}');";
+        if ($this->getLaravel() instanceof LumenApplication) {
+            foreach ($routeMaps as $r) {
+                $routes[] = '$router' . "->post('" . lcfirst($this->className) . "/{$r}', '{$controller}@{$r}');";
+            }
+        } else {
+            foreach ($routeMaps as $r) {
+                $routes[] = "Route::post('" . lcfirst($this->className) . "/{$r}', '{$controller}@{$r}');";
+            }
         }
+
         $routeFile = config('songyz_scaffold.route_file');
         if (!file_exists($routeFile)) {
             $routeFile = base_path('routes' . self::DS . 'web.php');
