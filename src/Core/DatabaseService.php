@@ -118,8 +118,12 @@ abstract class DatabaseService
         if (is_callable($callback)) {
             $listData = $callback($listData);
         }
+        $defaultPage = config('songyz_scaffold.default_page');
 
-        return new DefaultPage($listData, $result->total(), $pageNumber, $pageSize);
+        if (empty($defaultPage)) {
+            $defaultPage = DefaultPage::class;
+        }
+        return new $defaultPage($listData, $result->total(), $pageNumber, $pageSize);
     }
 
     /**
