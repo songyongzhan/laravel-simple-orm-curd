@@ -58,7 +58,6 @@ class Scaffold extends Command
     {
         parent::__construct();
         $this->basePath = base_path();
-
     }
 
     /**
@@ -402,10 +401,8 @@ TOT;
         $servicePath = config('songyz_scaffold.service_path');
         $servicePath = base_path('app') . str_replace(base_path('app'), '', $servicePath);
 
-
         $modelNamespace = $this->calculationNameSpace(config('songyz_scaffold.model_path'));
         $currentNameSpace = $this->calculationNameSpace($servicePath);
-
 
         $content = str_replace([
             '--serviceName--',
@@ -469,8 +466,6 @@ class --modelName--Model extends Model{
 TOT;
         $modelPath = config('songyz_scaffold.model_path');
         $modelPath = base_path('app') . str_replace(base_path('app'), '', $modelPath);
-
-
 
         $createdAt = config('songyz_scaffold.model_create_at');
         $updateAt = config('songyz_scaffold.model_updated_at');
