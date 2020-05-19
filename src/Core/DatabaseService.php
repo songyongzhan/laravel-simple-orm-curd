@@ -5,6 +5,12 @@ namespace Songyz\Core;
 use Songyz\Library\DefaultPage;
 use Songyz\Traits\SnakeCamelChange;
 
+/**
+ * Class DatabaseService
+ * @package Songyz\Core
+ * @author songyz <574482856@qq.com>
+ * @date 2020/5/19 17:08
+ */
 abstract class DatabaseService
 {
     use SnakeCamelChange;

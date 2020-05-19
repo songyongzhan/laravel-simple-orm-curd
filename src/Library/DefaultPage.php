@@ -5,6 +5,12 @@ namespace Songyz\Library;
 use Songyz\Contracts\PageInterface;
 use Songyz\Exceptions\PageValidaException;
 
+/**
+ * Class DefaultPage
+ * @package Songyz\Library
+ * @author songyz <574482856@qq.com>
+ * @date 2020/5/19 16:30\
+ */
 class DefaultPage implements PageInterface
 {
     /**

@@ -4,6 +4,12 @@ namespace Songyz\Core;
 
 use Songyz\Traits\SnakeCamelChange;
 
+/**
+ * Class Controller
+ * @package Songyz\Core
+ * @author songyz <574482856@qq.com>
+ * @date 2020/5/19 16:30
+ */
 class Controller extends \App\Http\Controllers\Controller
 {
 
@@ -135,7 +141,7 @@ class Controller extends \App\Http\Controllers\Controller
      * @param $condition_type 处理类型
      * @param $data
      * @return array
-     * @author songyz <songyz@guahao.com>
+     * @author songyz <574482856@qq.com>
      * @date 2020/1/14 16:21
      */
     private function like_condition($val, $where, $condition_type, $data)
@@ -187,7 +193,7 @@ class Controller extends \App\Http\Controllers\Controller
      * @param $condition_type
      * @param $data
      * @return array
-     * @author songyz <songyz@guahao.com>
+     * @author songyz <574482856@qq.com>
      * @date 2020/1/14 16:20
      */
     private function in_condition($val, $where, $condition_type, $data)

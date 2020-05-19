@@ -5,6 +5,12 @@ namespace Songyz\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
+/**
+ * Class Scaffold
+ * @package Songyz\Commands
+ * @author songyz <574482856@qq.com>
+ * @date 2020/5/19 16:27
+ */
 class Scaffold extends Command
 {
     /**
@@ -147,6 +153,7 @@ class Scaffold extends Command
 namespace --namespace--;
 
 use Illuminate\Http\Request;
+use Songyz\Core\Controller as ApiController;
 use --manageNamespace--\--controllerName--Manager;
 /**
  * --fileDescription--
@@ -156,7 +163,6 @@ use --manageNamespace--\--controllerName--Manager;
  */
 class --controllerName--Controller extends ApiController
 {
-
     /**
      *
      * add
@@ -184,7 +190,7 @@ class --controllerName--Controller extends ApiController
     public function getOne(Request $request)
     {
         $id = $request->input('id');
-        $result = $this->getManager()->getOne($id, self::LIST_FIELDS);
+        $result = $this->getManager()->getOne($id);
 
         return $this->showJson($result);
     }
@@ -226,7 +232,7 @@ class --controllerName--Controller extends ApiController
 
         $pageNumber = $request->input('pageNumber', 1);
         $pageSize = $request->input('pageSize', 10);
-        $result = $this->getManager()->getList($where, self::LIST_FIELDS, $pageSize, $pageNumber);
+        $result = $this->getManager()->getList($where, [], $pageSize, $pageNumber);
 
         return $this->showJson($result);
     }
@@ -301,7 +307,7 @@ TOT;
         $managerStub = <<<'TOT'
 <?php
 
-namespace --managerName--;
+namespace --namespace--;
 
 use Songyz\Core\DatabaseManager;
 use Songyz\Core\DatabaseService;

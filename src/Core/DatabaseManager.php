@@ -6,6 +6,8 @@ namespace Songyz\Core;
  * 本地业务层
  * Class Manager
  * @package App\Core
+ * @author songyz <574482856@qq.com>
+ *
  */
 abstract class DatabaseManager
 {

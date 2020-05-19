@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 /**
  * 核心Model类
  * Class Model
+ * @author songyz <574482856@qq.com>
+ *
  */
 class Model extends \Illuminate\Database\Eloquent\Model
 {
