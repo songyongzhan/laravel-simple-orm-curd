@@ -1,6 +1,6 @@
 <?php
 
-namespace Songyz\Contracts;
+namespace Songyz\Simple\Orm\Contracts;
 
 /**
  * Interface PageInterface

@@ -1,10 +1,10 @@
 <?php
 
-namespace Songyz\Providers;
+namespace Songyz\Simple\Orm\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Songyz\Command\GeneratorValidatorRequestCommand;
-use Songyz\Commands\Scaffold;
+use Songyz\Simple\Orm\Command\GeneratorValidatorRequestCommand;
+use Songyz\Simple\Orm\Commands\Scaffold;
 
 /**
  * 配置文件发布

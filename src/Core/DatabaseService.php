@@ -1,9 +1,9 @@
 <?php
 
-namespace Songyz\Core;
+namespace Songyz\Simple\Orm\Core;
 
-use Songyz\Library\DefaultPage;
-use Songyz\Traits\SnakeCamelChange;
+use Songyz\Simple\Orm\Library\DefaultPage;
+use Songyz\Simple\Orm\Traits\SnakeCamelChange;
 
 /**
  * Class DatabaseService

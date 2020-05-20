@@ -1,9 +1,9 @@
 <?php
 
-namespace Songyz\Library;
+namespace Songyz\Simple\Orm\Library;
 
-use Songyz\Contracts\PageInterface;
-use Songyz\Exceptions\PageValidaException;
+use Songyz\Simple\Orm\Contracts\PageInterface;
+use Songyz\Simple\Orm\Exceptions\PageValidaException;
 
 /**
  * Class DefaultPage

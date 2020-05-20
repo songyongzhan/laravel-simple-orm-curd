@@ -20,7 +20,7 @@
   "type": "library",
   "autoload": {
     "psr-4": {
-      "Songyz\\": "src/"
+      "Songyz\\Simple\\Orm": "src/"
     },
     "files": [
       "src/library/functions.php"

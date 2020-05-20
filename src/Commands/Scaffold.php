@@ -1,6 +1,6 @@
 <?php
 
-namespace Songyz\Commands;
+namespace Songyz\Simple\Orm\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -153,7 +153,7 @@ class Scaffold extends Command
 namespace --namespace--;
 
 use Illuminate\Http\Request;
-use Songyz\Core\Controller as ApiController;
+use Songyz\Simple\Orm\Core\Controller as ApiController;
 use --manageNamespace--\--controllerName--Manager;
 /**
  * --fileDescription--
@@ -309,8 +309,8 @@ TOT;
 
 namespace --namespace--;
 
-use Songyz\Core\DatabaseManager;
-use Songyz\Core\DatabaseService;
+use Songyz\Simple\Orm\Core\DatabaseManager;
+use Songyz\Simple\Orm\Core\DatabaseService;
 use --serviceNamespace--\--managerName--Service;
 
 /**
@@ -375,8 +375,8 @@ TOT;
 
 namespace --namespace--;
 
-use Songyz\Core\DatabaseService;
-use Songyz\Core\Model;
+use Songyz\Simple\Orm\Core\DatabaseService;
+use Songyz\Simple\Orm\Core\Model;
 use --modelNamespace--\--serviceName--Model;
 
 /**
@@ -446,7 +446,7 @@ TOT;
 
 namespace --namespace--;
 
-use Songyz\Core\Model;
+use Songyz\Simple\Orm\Core\Model;
 
 /**
  * --fileDescription--

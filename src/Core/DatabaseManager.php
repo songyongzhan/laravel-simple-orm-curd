@@ -1,6 +1,6 @@
 <?php
 
-namespace Songyz\Core;
+namespace Songyz\Simple\Orm\Core;
 
 /**
  * 本地业务层

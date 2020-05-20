@@ -1,6 +1,6 @@
 <?php
 
-namespace Songyz\Exceptions;
+namespace Songyz\Simple\Orm\Exceptions;
 
 /**
  * Class PageValidaException

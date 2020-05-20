@@ -8,7 +8,7 @@
  * @author songyz <574482856@qq.com>
  */
 return [
-    'default_page' => Songyz\Library\DefaultPage::class,
+    'default_page' => Songyz\Simple\Orm\Library\DefaultPage::class,
     'controller_path' => base_path('app' . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers'),
     'manager_path' => base_path('app' . DIRECTORY_SEPARATOR . 'Managers'),
     'service_path' => base_path('app' . DIRECTORY_SEPARATOR . 'Services'),

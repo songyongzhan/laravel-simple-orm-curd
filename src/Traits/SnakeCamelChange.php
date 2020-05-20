@@ -1,6 +1,6 @@
 <?php
 
-namespace Songyz\Traits;
+namespace Songyz\Simple\Orm\Traits;
 
 /**
  * 驼峰 下划线 相互转换

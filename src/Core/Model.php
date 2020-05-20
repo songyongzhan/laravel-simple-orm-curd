@@ -1,8 +1,8 @@
 <?php
 
-namespace Songyz\Core;
+namespace Songyz\Simple\Orm\Core;
 
-use Songyz\Traits\SnakeCamelChange;
+use Songyz\Simple\Orm\Traits\SnakeCamelChange;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
