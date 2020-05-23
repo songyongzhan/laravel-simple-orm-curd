@@ -23,7 +23,7 @@
       "Songyz\\Simple\\Orm": "src/"
     },
     "files": [
-      "src/library/functions.php"
+      "src/Library/functions.php"
     ]
   },
   "require-dev": {
