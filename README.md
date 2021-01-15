@@ -17,7 +17,7 @@ composer require songyz/laravel-simple-orm-curd
   打开`config/app.php` 文件，找到  `providers` 数组中添加以下代码
 
   ```php
-  Songyz\Providers\ScaffoldConfigPublishProvider::class
+  Songyz\Simple\Orm\Providers\ScaffoldConfigPublishProvider::class
   ```
 
 * Lumen
@@ -25,7 +25,7 @@ composer require songyz/laravel-simple-orm-curd
   打开 `bootstrap/app.php` ，添加
 
   ```php
-  $app->register(Songyz\Providers\ScaffoldConfigPublishProvider::class);
+  $app->register(Songyz\Simple\Orm\Providers\ScaffoldConfigPublishProvider::class);
   ```
 
 ## 3、加载配置文件
@@ -33,7 +33,7 @@ composer require songyz/laravel-simple-orm-curd
 * Laravel
 
   ```php
-  php artisan vendor:publish --provider="Songyz\Providers\ScaffoldConfigPublishProvider" 
+  php artisan vendor:publish --provider="Songyz\Simple\Orm\Providers\ScaffoldConfigPublishProvider" 
   ```
 
 * Lumen
