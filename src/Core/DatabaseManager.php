@@ -51,6 +51,6 @@ abstract class DatabaseManager
         return $this->getService()->getOne($where, $fields);
     }
 
-    public abstract function getService(): DatabaseService;
+    public abstract function getService();
 
 }
