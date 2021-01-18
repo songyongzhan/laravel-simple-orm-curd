@@ -22,6 +22,15 @@ abstract class DatabaseService
 
     }
 
+    /**
+     *
+     * add
+     * @param array $data
+     * @return string
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/18 09:32
+     */
     public function add(array $data)
     {
         $data = $this->filterField($this->snake($data));
@@ -30,6 +39,18 @@ abstract class DatabaseService
         return $result ? $result->{$this->primaryId} : '';
     }
 
+    /**
+     *
+     * getOne
+     * @param $where
+     * @param array $fields
+     * @param array $with
+     * @param string $callback
+     * @return array
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/18 09:32
+     */
     public function getOne($where, array $fields = [], array $with = [], $callback = 'function')
     {
         $fields = $this->filterField($this->valueSnake($fields), '', false);
@@ -47,6 +68,16 @@ abstract class DatabaseService
         return $data ?? [];
     }
 
+    /**
+     * 更新
+     * update
+     * @param $where
+     * @param array $data
+     * @return string
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/18 09:31
+     */
     public function update($where, array $data)
     {
         if (!is_array($where)) {
@@ -59,6 +90,15 @@ abstract class DatabaseService
         return $result ?? '0';
     }
 
+    /**
+     * 删除
+     * del
+     * @param int $id
+     * @return string
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/18 09:31
+     */
     public function del(int $id)
     {
         $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=', $id)->delete();
@@ -83,6 +123,8 @@ abstract class DatabaseService
      * @param string $callback 回调方法
      * @return DefaultPage
      * @throws \Songyz\Exceptions\PageValidaException
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2020/05/18 09:27
      */
     public function getList(
         array $where,
@@ -139,8 +181,11 @@ abstract class DatabaseService
      * @param array $fields
      * @param string $order
      * @param array $with
-     * @param string $callback 回调方法
-     * @return array
+     * @param string $callback
+     * @return mixed
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2020/05/18 09:27
      */
     public function getListAll(
         array $where,
@@ -149,7 +194,7 @@ abstract class DatabaseService
         array $with = [],
         $callback = 'function'
     ) {
-        empty($order) && $order = 'gmt_created desc';
+        empty($order) && $order = $this->primaryId . ' desc';
         list($orderField, $orderType) = explode(' ', $order);
 
         $fields = $this->filterField($this->valueSnake($fields), '', false);
