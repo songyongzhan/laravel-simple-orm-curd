@@ -23,7 +23,7 @@ abstract class DatabaseService
     }
 
     /**
-     *
+     * 新增
      * add
      * @param array $data
      * @return string
@@ -40,7 +40,7 @@ abstract class DatabaseService
     }
 
     /**
-     *
+     * 获取单条记录
      * getOne
      * @param $where
      * @param array $fields
@@ -112,7 +112,7 @@ abstract class DatabaseService
     }
 
     /**
-     *
+     * 获取列表 带有分页
      * getList
      * @param array $where
      * @param array $fields
@@ -175,7 +175,7 @@ abstract class DatabaseService
     }
 
     /**
-     *
+     * 获取所有的记录
      * getListAll
      * @param array $where
      * @param array $fields

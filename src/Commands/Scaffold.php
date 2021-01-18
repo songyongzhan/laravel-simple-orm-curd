@@ -320,8 +320,14 @@ use --serviceNamespace--\--managerName--Service;
  */
 class --managerName--Manager extends DatabaseManager
 {
-
-    public function getService(): DatabaseService
+    /**
+     *
+     * getService
+     * @return --managerName--Service
+     *
+     * @date --datetime--
+     */
+    public function getService()
     {
         return new --managerName--Service();
     }
@@ -390,7 +396,11 @@ class --serviceName--Service extends DatabaseService {
     protected $primaryId = 'id';
 
     /**
-     * @inheritDoc
+     *
+     * getModel
+     * @return --serviceName--Model
+     *
+     * @date --datetime--
      */
     public function getModel(): Model
     {
