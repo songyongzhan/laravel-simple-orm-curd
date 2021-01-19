@@ -40,6 +40,38 @@ abstract class DatabaseService
     }
 
     /**
+     * 更新模型
+     * 如果 $attributes 不存在，就联合$attributes和$values 创建一个
+     * 如果存在 就将符合$attributes的数据更新成$values
+     * updateOrCreate
+     * @param array $attributes
+     * @param array $values
+     *
+     * @return
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/19 08:20
+     */
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->getModel()->newQuery()->updateOrCreate($this->snake($attributes), $this->snake($values));
+    }
+
+    /**
+     *
+     * firstOrCreate
+     * @param array $attributes
+     * @param array $values
+     * @return mixed
+     * @url https://learnku.com/docs/laravel/6.x/eloquent/5176#b438f8
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/19 08:27
+     */
+    public function firstOrCreate(array $attributes, array $values = [])
+    {
+        return $this->getModel()->newQuery()->firstOrCreate($this->snake($attributes), $this->snake($values));
+    }
+
+    /**
      * 获取单条记录
      * getOne
      * @param $where
@@ -93,15 +125,19 @@ abstract class DatabaseService
     /**
      * 删除
      * del
-     * @param int $id
+     * @param $where
      * @return string
      *
      * @author songyongzhan <574482856@qq.com>
      * @date 2021/1/18 09:31
      */
-    public function del(int $id)
+    public function del($where)
     {
-        $affectedNum = $this->getModel()->newQuery()->where($this->primaryId, '=', $id)->delete();
+        if (!is_array($where)) {
+            $where = [get_where_condition($this->primaryId, $where)];
+        }
+
+        $affectedNum = $this->getModel()::getQuery($where)->delete();
 
         return $affectedNum ?? '0';
     }
