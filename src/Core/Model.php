@@ -25,6 +25,30 @@ class Model extends \Illuminate\Database\Eloquent\Model
     /** @var array 拒绝填充的字段 */
     protected $guarded = [];
 
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->fill($attributes);
+    }
+
+    /**
+     * 填充数据字段转换
+     * fill
+     * @param array $attributes
+     * @return \Songyz\Simple\Orm\Core\Model
+     *
+     * @date 2021/5/28 10:42
+     */
+    public function fill(array $attributes)
+    {
+        if ($this->underlineToHump) {
+            $attributes = $this->snake($attributes);
+        }
+
+        return parent::fill($attributes);
+    }
     /**
      * 下划线转驼峰
      * getArrayableAttributes
@@ -85,7 +109,6 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
         return $query;
     }
-
 
     /**
      * 清空数据库数据表不存在的字段
