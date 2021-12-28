@@ -34,6 +34,21 @@ class Model extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
+     * 支持驼峰获取数值
+     *
+     * getAttribute
+     * @param string $key
+     * @return mixed
+     */
+    public function getAttribute($key) {
+        if ($this->underlineToHump && (strpos($key, '_') === false) && !array_key_exists($key, $this->attributes)) {
+            $key = Str::snake($key);
+        }
+
+        return parent::getAttribute($key);
+    }
+
+    /**
      * 填充数据字段转换
      * fill
      * @param array $attributes
@@ -102,8 +117,16 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
         if ($where) {
             foreach ($where as $key => $val) {
-                $query->where(Str::snake($val['field']), $val['operator'] ?? '=', $val['val'],
-                    $val['condition'] ?? 'AND');
+                if (is_array($val) && isset($val['field'])) {
+                    $query->where(Str::snake($val['field']), $val['operator'] ?? '=', $val['val'],
+                        $val['condition'] ?? 'AND');
+                }
+                elseif (is_array($val)) {
+                    $query->where(Str::snake($key), $val['0'] ?? '=', $val['1'] ?? '', $val['condition'] ?? 'AND');
+                }
+                else {
+                    $query->where(Str::snake($key), '=', $val);
+                }
             }
         }
 
