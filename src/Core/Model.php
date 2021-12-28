@@ -40,7 +40,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
      * @param string $key
      * @return mixed
      */
-    public function getAttribute($key) {
+    public function getAttribute($key)
+    {
         if ($this->underlineToHump && (strpos($key, '_') === false) && !array_key_exists($key, $this->attributes)) {
             $key = Str::snake($key);
         }
@@ -64,6 +65,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
         return parent::fill($attributes);
     }
+
     /**
      * 下划线转驼峰
      * getArrayableAttributes
@@ -118,13 +120,25 @@ class Model extends \Illuminate\Database\Eloquent\Model
         if ($where) {
             foreach ($where as $key => $val) {
                 if (is_array($val) && isset($val['field'])) {
-                    $query->where(Str::snake($val['field']), $val['operator'] ?? '=', $val['val'],
-                        $val['condition'] ?? 'AND');
-                }
-                elseif (is_array($val)) {
-                    $query->where(Str::snake($key), $val['0'] ?? '=', $val['1'] ?? '', $val['condition'] ?? 'AND');
-                }
-                else {
+                    $command = $val['command'] ?? 'where';
+                    if ($command == 'where') {
+                        $query->where(Str::snake($val['field']), $val['operator'] ?? '=', $val['val'],
+                            $val['condition'] ?? 'AND');
+                    } elseif ($command == 'whereIn') {
+                        $query->whereIn(Str::snake($val['field']), $val['val'], $val['condition'] ?? 'AND');
+                    } elseif ($command == 'whereBetween') {
+                        $query->whereBetween(Str::snake($val['field']), $val['val']);
+                    }
+                } elseif (is_array($val)) {
+                    $command = $val[4] ?? 'where';
+                    if ($command == 'where') {
+                        $query->where(Str::snake($val[0]), $val[1] ?? '=', $val[2] ?? '', $val[3] ?? 'AND');
+                    } elseif ($command == 'whereIn') {
+                        $query->whereIn(Str::snake($val[0]), $val[2] ?? [], $val[3] ?? 'AND');
+                    } elseif ($command == 'whereBetween') {
+                        $query->whereBetween(Str::snake($val[0]), $val[2] ?? []);
+                    }
+                } else {
                     $query->where(Str::snake($key), '=', $val);
                 }
             }
