@@ -35,6 +35,46 @@ class DefaultPage implements PageInterface
      */
     public $results;
 
+    /**
+     * @param int $pageNumber
+     */
+    public function setPageNumber(int $pageNumber): void
+    {
+        $this->pageNumber = $pageNumber;
+    }
+
+    /**
+     * @param int $pageSize
+     */
+    public function setPageSize(int $pageSize): void
+    {
+        $this->pageSize = $pageSize;
+    }
+
+    /**
+     * @param false|float|int $totalPages
+     */
+    public function setTotalPages($totalPages): void
+    {
+        $this->totalPages = $totalPages;
+    }
+
+    /**
+     * @param int $totalCount
+     */
+    public function setTotalCount(int $totalCount): void
+    {
+        $this->totalCount = $totalCount;
+    }
+
+    /**
+     * @param array $results
+     */
+    public function setResults(array $results): void
+    {
+        $this->results = $results;
+    }
+
     function __construct(array $results, int $totalCount, int $pageNumber = 1, int $pageSize = 10)
     {
         if ($pageNumber < 1) {

@@ -67,6 +67,50 @@ class Controller extends \App\Http\Controllers\Controller
      * @param $rules
      * @param array $data
      * @return array|bool|mixed
+     * 案例
+     * $rules = [
+     * [
+     * 'condition' => 'after_like',
+     * 'key_field' => [
+     * 'consignorPerson',
+     * 'recipientPerson',
+     * 'consignorMobile',
+     * 'recipientMobile',
+     * ],
+     * 'db_field'  => [
+     * 'consignor_person',
+     * 'recipient_person',
+     * 'consignor_mobile',
+     * 'recipient_mobile',
+     * ]
+     * ],
+     * [
+     * 'condition' => '=',
+     * 'key_field' => [
+     * 'checkNo',
+     * 'businessPersonId',
+     * 'operationPersonId',
+     * ],
+     * 'db_field'  => [
+     * 'check_no',
+     * 'business_person_id',
+     * 'operation_person_id',
+     * ]
+     * ],
+     * [
+     * 'condition' => 'between_array',
+     * 'key_field' => [
+     * 'transportDate',
+     * 'receiveDate',
+     * ],
+     * 'db_field'  => [
+     * 'transport_date',
+     * 'receive_date',
+     * ]
+     * ]
+     * ];
+     * data值：{"title":"","businessPersonId":"","operationPersonId":"","selectType":"checkNo","dateType":"receiveDate","dateValue":["2021-11-30","2021-12-02"],"payType":""}
+     *
      */
     public function where($rules, $data = [])
     {
@@ -93,6 +137,29 @@ class Controller extends \App\Http\Controllers\Controller
                     break;
                 case 'before_like':
                     $where = $this->like_condition($val, $where, 'before_like', $data);
+                    break;
+                case 'between_array':
+                    //就循环2次
+                    $filed = $val['key_field'];
+                    if (!empty($filed)) {
+                        foreach ($filed as $fk => $fv) {
+                            for ($f_key = 0; $f_key < 2; $f_key++) {
+                                if (!isset($data[$fv])) {
+                                    break;
+                                }
+                                $key_value = isset($data[$fv][$f_key]) ? $data[$fv][$f_key] : '';
+                                if (isset($val['db_field'][$fk])) {
+                                    $dbFields = $val['db_field'][$fk];
+                                    $condition = $f_key == 0 ? '>=' : '<=';
+                                    $where[] = [
+                                        'field'    => trim($dbFields),
+                                        'operator' => $condition,
+                                        'val'      => trim($key_value)
+                                    ];
+                                }
+                            }
+                        }
+                    }
                     break;
                 case 'between':
                     if (count($val['key_field']) < 2) {
@@ -137,8 +204,8 @@ class Controller extends \App\Http\Controllers\Controller
      * 处理like 或 not like
      * like_condition
      * @param $val
-     * @param $where 条件
-     * @param $condition_type 处理类型
+     * @param $where
+     * @param $condition_type
      * @param $data
      * @return array
      * @author songyz <574482856@qq.com>
@@ -179,6 +246,8 @@ class Controller extends \App\Http\Controllers\Controller
                             'condition' => 'AND'
                         ];
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -198,6 +267,8 @@ class Controller extends \App\Http\Controllers\Controller
      */
     private function in_condition($val, $where, $condition_type, $data)
     {
+
+        $dbFields = '';
 
         isset($val['db_field'][0]) && $dbFields = $val['db_field'][0];
 
