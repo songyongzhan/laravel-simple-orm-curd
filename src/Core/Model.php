@@ -126,6 +126,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
                             $val['condition'] ?? 'AND');
                     } elseif ($command == 'whereIn') {
                         $query->whereIn(Str::snake($val['field']), $val['val'], $val['condition'] ?? 'AND');
+                    } elseif ($command == 'whereNotIn') {
+                        $query->whereNotIn(Str::snake($val['field']), $val['val'], $val['condition'] ?? 'AND');
                     } elseif ($command == 'whereBetween') {
                         $query->whereBetween(Str::snake($val['field']), $val['val']);
                     }
@@ -135,6 +137,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
                         $query->where(Str::snake($val[0]), $val[1] ?? '=', $val[2] ?? '', $val[3] ?? 'AND');
                     } elseif ($command == 'whereIn') {
                         $query->whereIn(Str::snake($val[0]), $val[2] ?? [], $val[3] ?? 'AND');
+                    } elseif ($command == 'whereNotIn') {
+                        $query->whereNotIn(Str::snake($val['field']), $val['val'], $val['condition'] ?? 'AND');
                     } elseif ($command == 'whereBetween') {
                         $query->whereBetween(Str::snake($val[0]), $val[2] ?? []);
                     }

@@ -288,11 +288,11 @@ class Controller extends \App\Http\Controllers\Controller
             $where[] = [
                 'field'     => $dbFields,
                 'operator'  => $condition_type,
-                'val'       => $data[$dbFields],
-                'condition' => 'AND'
+                'val'       => $data[$dataFields],
+                'condition' => 'AND',
+                'command'   => $condition_type === 'in' ? 'whereIn' : 'whereNotIn'
             ];
         }
-
 
         return $where;
     }
