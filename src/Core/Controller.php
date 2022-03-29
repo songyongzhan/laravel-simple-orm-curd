@@ -176,9 +176,9 @@ class Controller extends \App\Http\Controllers\Controller
                             $dbFields = $val['db_field'][$f_key];
                             $condition = $f_key == 0 ? '>=' : '<=';
                             $where[] = [
-                                'field' => trim($dbFields),
+                                'field'    => trim($dbFields),
                                 'operator' => $condition,
-                                'val' => trim($key_value)
+                                'val'      => trim($key_value)
                             ];
                         }
                     }
@@ -189,9 +189,9 @@ class Controller extends \App\Http\Controllers\Controller
                             continue;
                         }
                         $where[] = [
-                            'field' => trim($val['db_field'][$f_key]),
+                            'field'    => trim($val['db_field'][$f_key]),
                             'operator' => $condition_type,
-                            'val' => isset($data[$f_filed]) ? trim($data[$f_filed]) : ''
+                            'val'      => isset($data[$f_filed]) ? trim($data[$f_filed]) : ''
                         ];
                     }
                     break;
@@ -223,26 +223,26 @@ class Controller extends \App\Http\Controllers\Controller
                 switch ($condition_type) {
                     case 'like':
                         $where[] = [
-                            'field' => $dbFields,
-                            'operator' => 'like',
-                            'val' => '%' . trim($key_value) . '%',
+                            'field'     => $dbFields,
+                            'operator'  => 'like',
+                            'val'       => '%' . trim($key_value) . '%',
                             'condition' => 'AND'
                         ];
                         break;
                     case 'after_like':
                         $where[] = [
-                            'field' => $dbFields,
-                            'operator' => 'like',
-                            'val' => trim($key_value) . '%',
+                            'field'     => $dbFields,
+                            'operator'  => 'like',
+                            'val'       => trim($key_value) . '%',
                             'condition' => 'AND'
                         ];
 
                         break;
                     case 'before_like':
                         $where[] = [
-                            'field' => $dbFields,
-                            'operator' => 'like',
-                            'val' => '%' . trim($key_value),
+                            'field'     => $dbFields,
+                            'operator'  => 'like',
+                            'val'       => '%' . trim($key_value),
                             'condition' => 'AND'
                         ];
                         break;
@@ -267,25 +267,32 @@ class Controller extends \App\Http\Controllers\Controller
      */
     private function in_condition($val, $where, $condition_type, $data)
     {
-
-        $dbFields = '';
-
-        isset($val['db_field'][0]) && $dbFields = $val['db_field'][0];
-
-        if (!$dbFields || !isset($data[$dbFields])) {
+        if (!isset($val['key_field'])) {
             return $where;
         }
 
-        if (is_string($data[$dbFields])) {
-            $data[$dbFields] = explode(',', $data[$dbFields]);
+        foreach ($val['key_field'] as $keyKey => $keyVal) {
+            $dbFields = '';
+            isset($val['db_field'][$keyKey]) && $dbFields = $val['db_field'][$keyKey];
+
+            $dataFields = '';
+            isset($val['key_field'][$keyKey]) && $dataFields = $val['key_field'][$keyKey];
+            if (!$dbFields || !isset($data[$dataFields])) {
+                return $where;
+            }
+
+            if (is_string($data[$dataFields])) {
+                $data[$dataFields] = explode(',', $data[$dataFields]);
+            }
+
+            $where[] = [
+                'field'     => $dbFields,
+                'operator'  => $condition_type,
+                'val'       => $data[$dbFields],
+                'condition' => 'AND'
+            ];
         }
 
-        $where[] = [
-            'field' => $dbFields,
-            'operator' => $condition_type,
-            'val' => $data[$dbFields],
-            'condition' => 'AND'
-        ];
 
         return $where;
     }
