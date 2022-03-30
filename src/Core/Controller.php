@@ -278,7 +278,7 @@ class Controller extends \App\Http\Controllers\Controller
             $dataFields = '';
             isset($val['key_field'][$keyKey]) && $dataFields = $val['key_field'][$keyKey];
             if (!$dbFields || !isset($data[$dataFields])) {
-                return $where;
+                continue;
             }
 
             if (is_string($data[$dataFields])) {
