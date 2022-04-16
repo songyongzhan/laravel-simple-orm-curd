@@ -185,7 +185,7 @@ abstract class DatabaseService
             $orderArr = explode(',', $order);
             foreach ($orderArr as $orderK => $orderVal) {
                 if (stripos(trim($orderVal), ' ')) {
-                    list($orderField, $orderType) = explode(' ', $order);
+                    list($orderField, $orderType) = explode(' ', $orderVal);
                     $query->orderBy($orderField, $orderType);
                 }
             }
