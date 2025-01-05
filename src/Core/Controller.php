@@ -148,7 +148,7 @@ class Controller extends \App\Http\Controllers\Controller
                                     break;
                                 }
                                 $key_value = isset($data[$fv][$f_key]) ? $data[$fv][$f_key] : '';
-                                if (isset($val['db_field'][$fk])) {
+                                if (isset($val['db_field'][$fk]) && strlen($key_value) > 0) {
                                     $dbFields = $val['db_field'][$fk];
                                     $condition = $f_key == 0 ? '>=' : '<=';
                                     $where[] = [
@@ -172,7 +172,7 @@ class Controller extends \App\Http\Controllers\Controller
                             break;
                         }
                         $key_value = isset($data[$f_filed]) ? $data[$f_filed] : '';
-                        if (isset($val['db_field'][$f_key])) {
+                        if (isset($val['db_field'][$f_key]) && strlen($key_value) > 0) {
                             $dbFields = $val['db_field'][$f_key];
                             $condition = $f_key == 0 ? '>=' : '<=';
                             $where[] = [
