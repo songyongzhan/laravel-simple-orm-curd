@@ -117,9 +117,15 @@ abstract class DatabaseService
         }
 
         $data = $this->filterField($this->snake($data));
-        $result = $this->getModel()::getQuery($where)->update($data);
+        $records = $this->getModel()::getQuery($where)->get();
 
-        return $result ?? '0';
+        foreach ($records as $key => $value) {
+            $value->fill($data);
+            $value->save();
+        }
+
+        return empty($records->toArray()) ? '0' : count($records->toArray());
+
     }
 
     /**
