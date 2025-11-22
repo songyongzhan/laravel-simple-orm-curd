@@ -84,3 +84,34 @@ if (!function_exists('get_return_json')) {
 }
 
 
+if (!function_exists('is_date')) {
+    /**
+     *
+     * is_date
+     * @param $str
+     *
+     * @return bool
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2025/11/22 14:45
+     */
+    function is_date($str)
+    {
+        // Check if the string matches YYYY-MM-DD HH:MM:SS format
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $str)) {
+            $timestamp = strtotime($str);
+            return $timestamp !== false && date('Y-m-d H:i:s', $timestamp) === $str;
+        }
+
+        // Check if the string matches YYYY-MM-DD format
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $str)) {
+            $timestamp = strtotime($str);
+            return $timestamp !== false && date('Y-m-d', $timestamp) === $str;
+        }
+
+        // If none of the formats match, return false
+        return false;
+    }
+
+}
+
+

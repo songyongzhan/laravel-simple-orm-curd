@@ -151,10 +151,18 @@ class Controller extends \App\Http\Controllers\Controller
                                 if (isset($val['db_field'][$fk]) && strlen($key_value) > 0) {
                                     $dbFields = $val['db_field'][$fk];
                                     $condition = $f_key == 0 ? '>=' : '<=';
+                                    $value = trim($key_value);
+                                    if (is_date($value)) {
+                                        if ($f_key == 0) {
+                                            $value = $value . ' 00:00:00';
+                                        } elseif ($f_key == 1) {
+                                            $value = $value . ' 23:59:59';
+                                        }
+                                    }
                                     $where[] = [
                                         'field'    => trim($dbFields),
                                         'operator' => $condition,
-                                        'val'      => trim($key_value)
+                                        'val'      => $value
                                     ];
                                 }
                             }
@@ -175,10 +183,19 @@ class Controller extends \App\Http\Controllers\Controller
                         if (isset($val['db_field'][$f_key]) && strlen($key_value) > 0) {
                             $dbFields = $val['db_field'][$f_key];
                             $condition = $f_key == 0 ? '>=' : '<=';
+
+                            $value = trim($key_value);
+                            if (is_date($value)) {
+                                if ($f_key == 0) {
+                                    $value = $value . ' 00:00:00';
+                                } elseif ($f_key == 1) {
+                                    $value = $value . ' 23:59:59';
+                                }
+                            }
                             $where[] = [
                                 'field'    => trim($dbFields),
                                 'operator' => $condition,
-                                'val'      => trim($key_value)
+                                'val'      => $value
                             ];
                         }
                     }
